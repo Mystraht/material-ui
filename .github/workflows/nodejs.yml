@@ -15,6 +15,7 @@ jobs:
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
+    - run: mkdir repo-zip
     - uses: montudor/action-zip@v0.1.0
       with:
         args: zip -qq -r ./repo-zip/repo.zip ./ 
