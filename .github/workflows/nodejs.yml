@@ -11,19 +11,25 @@ jobs:
       with:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-build-${{ env.cache-name }}-
-          ${{ runner.OS }}-build-
-          ${{ runner.OS }}-
     - name: Install
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
+    - name: Cache all
+      uses: actions/cache@v1
+      with:
+        path: /
+        key: ${{ github.sha }}
   lint:
     name: lint1
     needs: prepare
     runs-on: ubuntu-latest
     steps:
+    - name: Restore cache
+      uses: actions/cache@v1
+      with:
+        path: /
+        key: ${{ github.sha }}
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
@@ -33,6 +39,11 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
+    - name: Restore cache
+      uses: actions/cache@v1
+      with:
+        path: /
+        key: ${{ github.sha }}
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
