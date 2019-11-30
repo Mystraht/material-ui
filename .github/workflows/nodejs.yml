@@ -15,21 +15,20 @@ jobs:
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
-    - name: Cache all
-      uses: actions/cache@v1
+    - name: Upload repo
+      uses: actions/upload-artifact@v1
       with:
+        name: repo
         path: ./
-        key: ${{ github.sha }}
   lint:
     name: lint1
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-    - name: Restore cache
-      uses: actions/cache@v1
+    - name: Download repo
+      uses: actions/download-artifact@v1
       with:
-        path: ./
-        key: ${{ github.sha }}
+        name: repo
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
@@ -39,11 +38,10 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-    - name: Restore cache
-      uses: actions/cache@v1
+    - name: Download repo
+      uses: actions/download-artifact@v1
       with:
-        path: ./
-        key: ${{ github.sha }}
+        name: repo
     - name: testrun
       run: git diff --name-only origin/master
     - name: changed-files
