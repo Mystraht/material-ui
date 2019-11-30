@@ -1,15 +1,38 @@
 on: push
 name: Main
 jobs:
-  lint-and-test:
-    name: Test
+  prepare:
+    name: prepare
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
     - name: Install
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
+  lint:
+    name: lint1
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+    - name: Lint
+      uses: CultureHQ/actions-yarn@master
+      with:
+        args: test:u
+  lint2:
+    name: lint2
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
