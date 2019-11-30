@@ -34,7 +34,7 @@ jobs:
         name: repo
     - uses: montudor/action-zip@v0.1.0
       with:
-        args: unzip -qq -r ./repo.zip ./
+        args: unzip -qq -r repo.zip ./
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
@@ -50,7 +50,7 @@ jobs:
         name: repo
     - uses: montudor/action-zip@v0.1.0
       with:
-        args: unzip -qq -r ./repo.zip ./
+        args: unzip -qq -r repo.zip ./
     - name: testrun
       run: git diff --name-only origin/master
     - name: changed-files
