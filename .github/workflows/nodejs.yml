@@ -35,7 +35,7 @@ jobs:
       with:
         args: test:u
   lint2:
-    name: lint2
+    name: changed-files
     needs: prepare
     runs-on: ubuntu-latest
     steps:
@@ -44,7 +44,7 @@ jobs:
       with:
         path: ./
         key: ${{ github.sha }}
-    - name: Lint
+    - name: changed-files
       uses: CultureHQ/actions-yarn@master
       with:
-        args: test:u
+        args: test:file
