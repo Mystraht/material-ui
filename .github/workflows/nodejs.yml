@@ -18,7 +18,7 @@ jobs:
     - name: Cache all
       uses: actions/cache@v1
       with:
-        path: /
+        path: ./
         key: ${{ github.sha }}
   lint:
     name: lint1
@@ -28,7 +28,7 @@ jobs:
     - name: Restore cache
       uses: actions/cache@v1
       with:
-        path: /
+        path: ./
         key: ${{ github.sha }}
     - name: Lint
       uses: CultureHQ/actions-yarn@master
@@ -42,7 +42,7 @@ jobs:
     - name: Restore cache
       uses: actions/cache@v1
       with:
-        path: /
+        path: ./
         key: ${{ github.sha }}
     - name: Lint
       uses: CultureHQ/actions-yarn@master
