@@ -33,9 +33,6 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: repo
-    - run: ls
-    - run: ls ./repo
-    - run: ls ./repo/repo-zip
     - uses: montudor/action-zip@v0.1.0
       with:
         args: unzip -qq ./repo/repo.zip -d ./
