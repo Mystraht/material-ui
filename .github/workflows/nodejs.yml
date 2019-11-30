@@ -38,7 +38,7 @@ jobs:
     - run: ls ./repo/repo-zip
     - uses: montudor/action-zip@v0.1.0
       with:
-        args: unzip -qq ./repo/repo-zip/repo.zip -d ./
+        args: unzip -qq ./repo/repo.zip -d ./
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
