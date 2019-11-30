@@ -15,11 +15,14 @@ jobs:
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r ./repo.zip ./
     - name: Upload repo
       uses: actions/upload-artifact@v1
       with:
         name: repo
-        path: ./
+        path: ./repo.zip
   lint:
     name: lint1
     needs: prepare
@@ -29,6 +32,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: repo
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: unzip -qq -r ./repo.zip ./
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
@@ -42,6 +48,9 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: repo
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: unzip -qq -r ./repo.zip ./
     - name: testrun
       run: git diff --name-only origin/master
     - name: changed-files
