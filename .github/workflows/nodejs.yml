@@ -33,9 +33,12 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: repo
+    - run: ls
+    - run: ls ./repo
+    - run: ls ./repo/repo-zip
     - uses: montudor/action-zip@v0.1.0
       with:
-        args: unzip -qq ./repo-zip/repo.zip -d ./
+        args: unzip -qq ./repo/repo-zip/repo.zip -d ./
     - name: Lint
       uses: CultureHQ/actions-yarn@master
       with:
@@ -51,7 +54,7 @@ jobs:
         name: repo
     - uses: montudor/action-zip@v0.1.0
       with:
-        args: unzip -qq ./repo-zip/repo.zip -d ./
+        args: unzip -qq ./repo/repo.zip -d ./
     - name: testrun
       run: git diff --name-only origin/master
     - name: changed-files
