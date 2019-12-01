@@ -16,9 +16,7 @@ jobs:
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install
         if: env.JS_MODIFIED == 'true'
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: install
+        run: yarn install
   lint:
     name: lint1
     needs: prepare_js
@@ -34,9 +32,7 @@ jobs:
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Lint
         if: env.JS_MODIFIED == 'true'
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: test:u
+        run: yarn test:u
   lint2:
     name: changed-files
     needs: prepare_js
