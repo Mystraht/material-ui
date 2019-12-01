@@ -1,5 +1,7 @@
 on: push
 name: Main
+env:
+  FIRST_NAME: Test
 jobs:
   check_scopes:
     name: check_scopes
