@@ -39,7 +39,8 @@
     "test:umd": "node packages/material-ui/test/umd/run.js",
     "test:unit": "cross-env NODE_ENV=test mocha 'packages/**/*.test.js' 'docs/**/*.test.js' --exclude '**/node_modules/**'",
     "test:u": "cross-env NODE_ENV=test mocha 'packages/material-ui/src/AppBar/*.test.js' --exclude '**/node_modules/**'",
-    "test:file": "node ./scripts/changed-files.js",
+    "test:file": "git status",
+    "test:file2": "node ./scripts/changed-files.js",
     "test:watch": "yarn test:unit --watch",
     "typescript": "lerna run typescript --parallel"
   },
