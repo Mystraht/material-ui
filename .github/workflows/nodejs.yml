@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - run: ls -la ./scripts/changed-files.js
     - name: Cache node modules
       uses: actions/cache@v1
       with:
@@ -37,9 +38,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Cache node modules
-    - uses: actions/cache@v1
+      uses: actions/cache@v1
       with:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-    - run: chmod 776 ./scripts/changed-files.js
+    - name: testrun
+      run: chmod 776 ./scripts/changed-files.js
     - run: npm run test:file
