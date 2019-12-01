@@ -42,6 +42,4 @@ jobs:
       with:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-    - name: testrun
-      run: chmod 776 ./scripts/changed-files.js
     - run: npm run test:file
