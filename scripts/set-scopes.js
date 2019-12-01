@@ -19,4 +19,12 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     });
 });
 
-actions.exportVariable('FIRST_NAME', 'lol');
+exec('echo "::set-env name=FIRST_NAME::lol"', (error, stdout) => {
+  if (error) {
+    console.error(`exec error: ${error}`);
+    return;
+  }
+  console.log(stdout);
+});
+
+// actions.exportVariable('FIRST_NAME', 'lol');
