@@ -18,7 +18,7 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     });
 });
 
-exec('export FIRST_NAME=coucou', (error, stdout) => {
+exec('::set-env name=FIRST_NAME::TEST', (error, stdout) => {
   if (error) {
     console.error(`exec error: ${error}`);
     return;
