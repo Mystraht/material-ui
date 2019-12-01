@@ -1,39 +1,50 @@
 on: push
 name: Main
 jobs:
-  prepare:
-    name: prepare
+  prepare_js:
+    name: prepare_js
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-build-${{ env.cache-name }}-
-          ${{ runner.OS }}-build-
-          ${{ runner.OS }}-
-    - name: Install
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: install
+      - uses: actions/checkout@master
+      - run: node ./scripts/set-scopes.js
+      - name: Cache node modules
+        if: env.JS_MODIFIED == 'true'
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        if: env.JS_MODIFIED == 'true'
+        run: yarn install
   lint:
     name: lint1
-    needs: prepare
+    needs: prepare_js
     runs-on: ubuntu-latest
     steps:
-    - name: Lint
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: test:u
-  lint2:
-    name: lint2
-    needs: prepare
+      - uses: actions/checkout@master
+      - run: node ./scripts/set-scopes.js
+      - name: Cache node module
+        if: env.JS_MODIFIED == 'true'
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Lint
+        if: env.JS_MODIFIED == 'true'
+        run: yarn test:u
+  changed_files:
+    name: changed-files
+    needs: prepare_js
     runs-on: ubuntu-latest
     steps:
-    - name: Lint
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: test:u
+      - uses: actions/checkout@master
+      - run: node ./scripts/set-scopes.js
+      - name: Cache node modules
+        if: env.JS_MODIFIED == 'true'
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: run test:file
+        if: env.JS_MODIFIED == 'true'
+        run: npm run test:file
