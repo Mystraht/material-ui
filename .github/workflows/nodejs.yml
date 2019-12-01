@@ -4,18 +4,17 @@ jobs:
   prepare_js:
     name: prepare_js
     runs-on: ubuntu-latest
-    needs: check_scopes
     steps:
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
       - name: Cache node modules
-        if: {{ JS_MODIFIED == 'true' }}
+        if: ${{ JS_MODIFIED == 'true' }}
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install
-        if: {{ JS_MODIFIED == 'true' }}
+        if: ${{ JS_MODIFIED == 'true' }}
         uses: CultureHQ/actions-yarn@master
         with:
           args: install
@@ -24,25 +23,25 @@ jobs:
     needs: prepare_js
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Cache node module
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-    - name: Lint
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: test:u
+      - uses: actions/checkout@master
+      - name: Cache node module
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Lint
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: test:u
   lint2:
     name: changed-files
     needs: prepare_js
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-    - run: npm run test:file
+      - uses: actions/checkout@master
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - run: npm run test:file
