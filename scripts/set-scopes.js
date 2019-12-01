@@ -12,6 +12,7 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     .forEach((line) => {
       if (line.match(/jsx|js/)) {
         setEnvVariable('JS_MODIFIED', 'true');
+        console.log(line);
       }
     });
 });
