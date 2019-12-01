@@ -1,5 +1,13 @@
 const { exec } = require('child_process');
 
+const scopes = [{
+  regexp: /(\.jsx)|(\.js)$/,
+  envVariable: 'JS_MODIFIED',
+}, {
+  regexp: /\.php$/,
+  envVariable: 'PHP_MODIFIED',
+}];
+
 exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {
     console.error(`exec error: ${error}`);
@@ -10,10 +18,11 @@ exec('git diff --name-only origin/master', (error, stdout) => {
 
   modifiedFiles
     .forEach((line) => {
-      if (line.match(/jsx|js/)) {
-        // setEnvVariable('JS_MODIFIED', 'true');
-        console.log(line);
-      }
+      scopes.forEach(scope => {
+        if (line.match(scope.regexp)) {
+          setEnvVariable(scope.envVariable, 'true');
+        }
+      })
     });
 });
 
@@ -26,5 +35,3 @@ function setEnvVariable(name, value) {
     console.log(stdout);
   });
 }
-
-// actions.exportVariable('FIRST_NAME', 'lol');

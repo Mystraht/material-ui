@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
-      - run: echo 'Test $JS_MODIFIED'
       - name: Cache node modules
         if: env.JS_MODIFIED == 'true'
         uses: actions/cache@v1
@@ -25,12 +24,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - run: node ./scripts/set-scopes.js
       - name: Cache node module
+        if: env.JS_MODIFIED == 'true'
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Lint
+        if: env.JS_MODIFIED == 'true'
         uses: CultureHQ/actions-yarn@master
         with:
           args: test:u
@@ -40,9 +42,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - run: node ./scripts/set-scopes.js
       - name: Cache node modules
+        if: env.JS_MODIFIED == 'true'
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
-      - run: npm run test:file
+      - name: run test:file
+        if: env.JS_MODIFIED == 'true'
+        run: npm run test:file
