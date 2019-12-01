@@ -5,6 +5,7 @@ jobs:
     name: prepare_js
     runs-on: ubuntu-latest
     steps:
+      - run: psql -c 'create database oc;' -U postgres
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
       - name: Cache node modules
@@ -32,7 +33,7 @@ jobs:
       - name: Lint
         if: env.JS_MODIFIED == 'true'
         run: yarn test:u
-  lint2:
+  changed_files:
     name: changed-files
     needs: prepare_js
     runs-on: ubuntu-latest
