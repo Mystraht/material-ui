@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
       - name: Cache node modules
-        if: JS_MODIFIED == 'true'
+        if: {{ JS_MODIFIED == 'true' }}
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install
-        if: JS_MODIFIED == 'true'
+        if: {{ JS_MODIFIED == 'true' }}
         uses: CultureHQ/actions-yarn@master
         with:
           args: install
