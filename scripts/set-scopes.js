@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const actions = require('@actions/core');
 
 exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {
@@ -18,9 +19,4 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     });
 });
 
-exec('echo "::set-env name=FIRST_NAME::HELLO"', (error, stdout) => {
-  if (error) {
-    console.error(`exec error: ${error}`);
-    return;
-  }
-});
+process.env.FIRST_NAME= 'coucou';
