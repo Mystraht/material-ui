@@ -1,0 +1,64 @@
+on: push
+name: Main
+jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+      - run: mkdir repo-zip
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./repo-zip/repo.zip ./
+      - name: Upload repo
+        uses: actions/upload-artifact@v1
+        with:
+          name: repo
+          path: repo-zip
+  lint:
+    name: lint1
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repo
+        uses: actions/download-artifact@v1
+        with:
+          name: repo
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq ./repo/repo.zip -d ./
+      - name: yarn install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+      - name: Lint
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: test:u
+  lint2:
+    name: changed-files
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download repo
+        uses: actions/download-artifact@v1
+        with:
+          name: repo
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: unzip -qq ./repo/repo.zip -d ./
+      - name: testrun
+        run: git diff --name-only origin/master
+      - name: changed-files
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: test:file
