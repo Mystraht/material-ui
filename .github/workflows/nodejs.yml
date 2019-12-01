@@ -29,13 +29,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-    - name: Download repo
-      uses: actions/download-artifact@v1
-      with:
-        name: repo
-    - uses: montudor/action-zip@v0.1.0
-      with:
-        args: unzip -qq ./repo/repo.zip -d ./
+    - uses: actions/checkout@master
     - name: yarn install
       uses: CultureHQ/actions-yarn@master
       with:
