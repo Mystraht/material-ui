@@ -17,15 +17,16 @@ exec('git diff --name-only origin/master', (error, stdout) => {
 });
 
 function setEnvVariable(name, value) {
-  exec('echo "::set-env name=' + name + '::' + value + '"', (error) => {
+  exec('echo "::set-env name=FIRST_NAME::lol"', (error, stdout) => {
     if (error) {
       console.error(`exec error: ${error}`);
       return;
     }
+    console.log(stdout);
   });
 }
 
+setEnvVariable('ezr', 'rezr');
 
-setEnvVariable('FIRST_NAME', 'lol');
 
 // actions.exportVariable('FIRST_NAME', 'lol');
