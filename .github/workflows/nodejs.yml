@@ -7,14 +7,15 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
+      - run: echo 'Test $JS_MODIFIED'
       - name: Cache node modules
-        if: env.JS_MODIFIED == 'true'
+        if: 'a' == 'b'
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install
-        if: env.JS_MODIFIED == 'true'
+        if: 'a' == 'b'
         uses: CultureHQ/actions-yarn@master
         with:
           args: install
