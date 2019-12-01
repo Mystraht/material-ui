@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 
-exec('git diff --name-only origin/master', { shell: '/usr/bin' }, (error, stdout) => {
+exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {
     console.error(`exec error: ${error}`);
     return;
