@@ -7,8 +7,6 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     return;
   }
 
-
-
   const modifiedFiles = stdout.split('\n');
 
   modifiedFiles
