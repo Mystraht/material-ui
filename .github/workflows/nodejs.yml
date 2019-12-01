@@ -9,13 +9,13 @@ jobs:
       - run: node ./scripts/set-scopes.js
       - run: echo 'Test $JS_MODIFIED'
       - name: Cache node modules
-        if: env.a == 'a'
+        if: env.JS_MODIFIED == 'true'
         uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install
-        if: env.a == 'a'
+        if: env.JS_MODIFIED == 'true'
         uses: CultureHQ/actions-yarn@master
         with:
           args: install
