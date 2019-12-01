@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const actions = require('@actions/core');
 
 exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {
@@ -18,4 +19,4 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     });
 });
 
-process.env.FIRST_NAME= 'coucou';
+actions.exportVariable('FIRST_NAME', 'lol');

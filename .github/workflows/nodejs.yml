@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - run: npm install @actions/core
     - run: node ./scripts/set-scopes.js
     - run: echo "::set-env name=FIRST_NAME::lol"
   prepare_js:
