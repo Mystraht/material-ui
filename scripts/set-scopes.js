@@ -20,7 +20,7 @@ exec('git diff --name-only origin/master', (error, stdout) => {
     .forEach((line) => {
       scopes.forEach(scope => {
         if (line.match(scope.regexp)) {
-          setEnvVariable(scope.envVariable, 'true');
+          // setEnvVariable(scope.envVariable, 'true');
         }
       })
     });
