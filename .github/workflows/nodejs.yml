@@ -10,6 +10,7 @@ jobs:
     - uses: actions/checkout@master
     - run: npm install @actions/core@1.2.0
     - run: node ./scripts/set-scopes.js
+    - run: echo Hello world $FIRST_NAME
   prepare_js:
     name: prepare_js
     runs-on: ubuntu-latest
