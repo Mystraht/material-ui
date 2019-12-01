@@ -20,7 +20,8 @@ exec('git diff --name-only origin/master', (error, stdout) => {
   modifiedFiles
     .forEach((line) => {
       if (line.match(/jsx|js/)) {
-        setEnvVariable('JS_MODIFIED', 'true');
+        setEnvVariable('JS_MODIFIED', 'truee');
+        console.log('env var set');
       }
     });
 });
