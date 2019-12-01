@@ -1,14 +1,5 @@
 const { exec } = require('child_process');
 
-function setEnvVariable(name, value) {
-  exec('echo "::set-env name=' + name + '::' + value + '"', (error) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
-    }
-  });
-}
-
 exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {
     console.error(`exec error: ${error}`);
@@ -20,8 +11,17 @@ exec('git diff --name-only origin/master', (error, stdout) => {
   modifiedFiles
     .forEach((line) => {
       if (line.match(/jsx|js/)) {
-        setEnvVariable('JS_MODIFIED', 'truee');
-        console.log('env var set');
+
       }
     });
 });
+
+exec('echo "::set-env name=FIRST_NAME::lol"', (error, stdout) => {
+  if (error) {
+    console.error(`exec error: ${error}`);
+    return;
+  }
+  console.log(stdout);
+});
+
+// actions.exportVariable('FIRST_NAME', 'lol');

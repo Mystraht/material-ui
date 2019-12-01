@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: node ./scripts/set-scopes.js
-    - run: echo "test $JS_MODIFIED"
+    - run: echo "test $FIRST_NAME"
   prepare_js:
     name: prepare_js
     runs-on: ubuntu-latest
