@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: node ./scripts/set-scopes.js
-      - run: yarn -v
       - name: Cache node modules
         if: env.JS_MODIFIED == 'true'
         uses: actions/cache@v1
