@@ -9,13 +9,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: node ./scripts/set-scopes.js
-    - run: echo Hello world $FIRST_NAME
+    - run: echo "Hello world" > ../test.txt
   prepare_js:
     name: prepare_js
     runs-on: ubuntu-latest
     needs: check_scopes
     steps:
-      - run: echo Hello world $FIRST_NAME
+      - run: cat ../test.txt
       - uses: actions/checkout@master
       - name: Cache node modules
         uses: actions/cache@v1
