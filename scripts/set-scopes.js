@@ -1,5 +1,4 @@
 const { exec } = require('child_process');
-const actions = require('@actions/core');
 
 exec('git diff --name-only origin/master', (error, stdout) => {
   if (error) {

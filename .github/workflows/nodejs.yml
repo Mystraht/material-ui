@@ -6,7 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: npm install @actions/core
     - run: node ./scripts/set-scopes.js
     - run: echo "test $FIRST_NAME"
   prepare_js:
